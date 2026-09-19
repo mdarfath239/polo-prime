@@ -1,14 +1,36 @@
-# Welcome to your Lovable project
+# Polo Prime
+
+Design a conversion-focused single-product e-commerce website for selling ONE US Polo T-shirt.
+
+BUSINESS
+
+Brand/Product:
+
+Product: US Polo T-shirt
+
+Category: Men's T-shirt
+
+Available size: ONLY S
+
+Price: ₹299
+
+Currency: Indian Rupee (₹)
+
+Inventory: Single product
+
+Target market: India
+
+Primary goal: Get the customer to purchase the T-shirt quickly. which i share screenshot for home page design
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/275faa45-bcf5-43cb-b2fc-216081e61611).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +42,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
