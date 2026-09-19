@@ -24,6 +24,12 @@ const products = [
   { name: "US Polo Essential Tee", colour: "Olive", image: oliveImage },
 ];
 
+const featuredProduct = products[0] ?? {
+  name: "US Polo Essential Tee",
+  colour: "Deep Forest",
+  image: productImage,
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -41,7 +47,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [quantity, setQuantity] = useState(1);
   const [cartOpen, setCartOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(products[0]);
+  const [selectedProduct, setSelectedProduct] = useState(featuredProduct);
 
   const goToProduct = () => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" });
   const selectProduct = (product: (typeof products)[number]) => {
