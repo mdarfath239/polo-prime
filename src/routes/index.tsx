@@ -5,6 +5,30 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/us-polo-tee-hero.jpg";
 import productImage from "@/assets/us-polo-tee-front.jpg";
 import detailImage from "@/assets/us-polo-tee-detail.jpg";
+import brickImage from "@/assets/tee-brick.jpg";
+import indigoImage from "@/assets/tee-indigo.jpg";
+import charcoalImage from "@/assets/tee-charcoal.jpg";
+import boneImage from "@/assets/tee-bone.jpg";
+import blackImage from "@/assets/tee-black.jpg";
+import oliveImage from "@/assets/tee-olive.jpg";
+import heatherImage from "@/assets/tee-heather.jpg";
+
+const products = [
+  { name: "US Polo Essential Tee", colour: "Deep Forest", image: productImage },
+  { name: "US Polo Essential Tee", colour: "Brick", image: brickImage },
+  { name: "US Polo Essential Tee", colour: "Bone", image: boneImage },
+  { name: "US Polo Essential Tee", colour: "Charcoal", image: charcoalImage },
+  { name: "US Polo Washed Tee", colour: "Indigo", image: indigoImage },
+  { name: "US Polo Essential Tee", colour: "Black", image: blackImage },
+  { name: "US Polo Everyday Tee", colour: "Heather Grey", image: heatherImage },
+  { name: "US Polo Essential Tee", colour: "Olive", image: oliveImage },
+];
+
+const featuredProduct = products[0] ?? {
+  name: "US Polo Essential Tee",
+  colour: "Deep Forest",
+  image: productImage,
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,8 +47,13 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [quantity, setQuantity] = useState(1);
   const [cartOpen, setCartOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(featuredProduct);
 
   const goToProduct = () => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" });
+  const selectProduct = (product: (typeof products)[number]) => {
+    setSelectedProduct(product);
+    window.setTimeout(goToProduct, 0);
+  };
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -36,7 +65,7 @@ function Index() {
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
           <a href="#top" className="font-display text-xl font-bold uppercase tracking-brand text-hero-foreground">North & Field</a>
           <nav className="hidden items-center gap-8 text-xs font-medium text-hero-foreground/85 md:flex" aria-label="Main navigation">
-            <a href="#product" className="hover:text-hero-foreground">The T-shirt</a>
+            <a href="#shop" className="hover:text-hero-foreground">Shop</a>
             <a href="#details" className="hover:text-hero-foreground">Details</a>
             <a href="#delivery" className="hover:text-hero-foreground">Delivery</a>
           </nav>
@@ -64,15 +93,38 @@ function Index() {
         </div>
       </section>
 
-      <section id="product" className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.15fr_.85fr] md:py-24">
+      <section id="shop" className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
+        <div className="mb-9 flex items-end justify-between border-b border-border pb-5">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Men's collection</p>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl">Essential T-shirts</h2>
+          </div>
+          <p className="hidden text-sm text-muted-foreground sm:block">8 colours · Size S</p>
+        </div>
+        <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 md:grid-cols-4">
+          {products.map((product) => (
+            <button key={product.colour} onClick={() => selectProduct(product)} className="group text-left" aria-label={`View ${product.colour} T-shirt`}>
+              <div className="aspect-[4/5] overflow-hidden bg-secondary">
+                <img src={product.image} loading="lazy" width={900} height={1056} alt={`${product.colour} men's T-shirt`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]" />
+              </div>
+              <h3 className="mt-3 text-xs font-semibold leading-5 sm:text-sm">{product.name}</h3>
+              <p className="text-xs text-muted-foreground">{product.colour} · Size S</p>
+              <p className="mt-1 text-sm font-semibold">₹299</p>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section id="product" className="mx-auto grid max-w-7xl gap-10 border-t border-border px-5 py-16 sm:px-8 md:grid-cols-[1.15fr_.85fr] md:py-24">
         <div className="grid gap-3 sm:grid-cols-2">
-          <img src={productImage} loading="lazy" width={1200} height={1408} alt="US Polo T-shirt front view" className="h-full w-full bg-secondary object-cover" />
+          <img src={selectedProduct.image} loading="lazy" width={1200} height={1408} alt={`${selectedProduct.colour} US Polo T-shirt front view`} className="h-full w-full bg-secondary object-cover" />
           <img src={detailImage} loading="lazy" width={1200} height={1408} alt="Close-up of the T-shirt collar and cotton texture" className="hidden h-full w-full bg-secondary object-cover sm:block" />
         </div>
 
         <div className="flex flex-col justify-center md:pl-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Men's essential</p>
-          <h2 className="mt-3 font-display text-4xl font-medium sm:text-5xl">US Polo T-shirt</h2>
+          <h2 className="mt-3 font-display text-4xl font-medium sm:text-5xl">{selectedProduct.name}</h2>
+          <p className="mt-2 text-sm text-muted-foreground">{selectedProduct.colour}</p>
           <div className="mt-5 flex items-baseline gap-3">
             <span className="text-3xl font-semibold">₹299</span>
             <span className="text-sm text-muted-foreground">inclusive of all taxes</span>
@@ -123,8 +175,8 @@ function Index() {
           <div className="flex h-full w-full max-w-md flex-col bg-background p-6 shadow-2xl">
             <div className="flex items-center justify-between border-b border-border pb-5"><h2 className="font-display text-2xl">Your bag</h2><button onClick={() => setCartOpen(false)} className="p-2" aria-label="Close shopping bag"><X size={20} /></button></div>
             <div className="flex gap-4 border-b border-border py-6">
-              <img src={productImage} alt="US Polo T-shirt" className="h-32 w-28 bg-secondary object-cover" />
-              <div className="flex-1"><h3 className="font-semibold">US Polo T-shirt</h3><p className="mt-1 text-sm text-muted-foreground">Forest · Size S</p><p className="mt-4 font-semibold">₹299 × {quantity}</p></div>
+              <img src={selectedProduct.image} alt={`${selectedProduct.colour} T-shirt`} className="h-32 w-28 bg-secondary object-cover" />
+              <div className="flex-1"><h3 className="font-semibold">{selectedProduct.name}</h3><p className="mt-1 text-sm text-muted-foreground">{selectedProduct.colour} · Size S</p><p className="mt-4 font-semibold">₹299 × {quantity}</p></div>
             </div>
             <div className="mt-auto">
               <div className="flex justify-between border-t border-border py-5 text-lg"><span>Total</span><strong>₹{299 * quantity}</strong></div>
